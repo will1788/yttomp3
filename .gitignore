@@ -60,7 +60,8 @@ bin/ffmpeg/*.dll
 bin/ffmpeg/*.so
 
 # Caso você inclua versões específicas no projeto:
-bin/*
+bin/ffmpeg/*
+!bin/ffmpeg/.gitkeep
 
 # -----------------------
 # TEMPORÁRIOS DO APP
