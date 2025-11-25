@@ -1,0 +1,92 @@
+# -----------------------
+# AMBIENTE VIRTUAL
+# -----------------------
+env/
+venv/
+.venv/
+
+# -----------------------
+# PYTHON
+# -----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.egg-info/
+*.egg
+*.log
+
+# Cache de libs e build
+build/
+dist/
+*.spec
+
+# -----------------------
+# IDEs (VSCode, PyCharm)
+# -----------------------
+.vscode/
+.idea/
+*.iml
+
+# -----------------------
+# TESTES
+# -----------------------
+.pytest_cache/
+.coverage
+htmlcov/
+
+# -----------------------
+# SISTEMA OPERACIONAL
+# -----------------------
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*.swp
+*.swo
+
+# -----------------------
+# FFMPEG
+# -----------------------
+# Ignorar binários pesados, mas manter pasta
+bin/ffmpeg/*.exe
+bin/ffmpeg/*.dll
+bin/ffmpeg/*.so
+
+# Caso você inclua versões específicas no projeto:
+bin/*
+
+# -----------------------
+# TEMPORÁRIOS DO APP
+# -----------------------
+temp/
+downloads/
+output/
+cache/
+
+# -----------------------
+# CONFIGS SENSÍVEIS
+# -----------------------
+*.env
+.env.*
+config/*.json
+config/*.ini
+
+# -----------------------
+# ARQUIVOS GERADOS POR EMPACOTAMENTO
+# -----------------------
+*.spec
+*.manifest
+*.dll
+*.tmp
+*.bak
+
+# PyInstaller
+*.dist/
+*.build/
