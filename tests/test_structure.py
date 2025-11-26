@@ -1,4 +1,5 @@
 import os
+import pytest
 
 
 def test_project_structure():

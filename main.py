@@ -1,4 +1,5 @@
 def main():
+    print("Estrutura do projeto está correta.")
     return True  # algo simples só pra validar execução
 
 
