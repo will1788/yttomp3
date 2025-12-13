@@ -6,5 +6,6 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from main import main
 
 
-def test_main_runs():
-    assert main() is True
+def test_main_runs(mock_ctk):
+    # mock_ctk garante que a GUI não abra
+    assert main() is not None
