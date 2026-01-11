@@ -93,7 +93,7 @@ def test_se_mode_selector_existe(app_inst, mock_ctk):
 
     segmented = mock_ctk["CTkSegmentedButton"]
 
-    kwargs = segmented.call_args
+    kwargs = segmented.call_args.kwargs
 
     assert "command" in kwargs
     assert kwargs["command"] == app_inst.on_mode_change
