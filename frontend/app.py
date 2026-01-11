@@ -1,5 +1,15 @@
 import customtkinter as ctk
 
+COLORS = {
+    "border": ("#ff0000", "#0000ff"),  # (frames, main)
+    "toolbar_bg": ("#dbdbdb", "#2b2b2b"),  # (light, dark)
+    "main_bg": ("#eeeeee", "#1f1f1f"),
+    "header_bg": ("#dbdbdb", "#2b2b2b"),
+    "entry_placeholder": "#888888",
+    "entry_text": "#000000",
+    "entry_bg": "#eeeeee",
+}
+
 
 class App:
     """
@@ -17,6 +27,12 @@ class App:
         self.main_frame = None
         self.header_frame = None
         self.header_label = None
+        self.url_entry = None
+        self.mode_selector = None
+        self.convert_button = None
+
+        # Debug
+        self.debug_mode = False
 
     def _create_root(self):
         """Cria a janela principal."""
@@ -27,9 +43,13 @@ class App:
         self.root.geometry(self.geometry)
         self.root.minsize(600, 400)
 
-    def _apply_border(self, widget, color="#ff0000"):
-        """Aplica borda ao widget."""
-        widget.configure(border_width=2, border_color=color)
+    def _apply_border(self, widget, color=COLORS["border"][0]):
+        """Aplica borda apenas se o modo de debug estiver ativado."""
+        if not self.debug_mode:
+            return
+
+        if hasattr(widget, "configure"):
+            widget.configure(border_color=color, border_width=2)
 
     def _create_frames(self):
         """Cria os frames principais (toolbar + main)."""
@@ -37,25 +57,48 @@ class App:
             master=self.root,
             height=25,
             width=self.toolbar_width,
-            fg_color="#2b2b2b",
+            fg_color=COLORS["toolbar_bg"][1],
         )
-        self._apply_border(self.toolbar, "#ff0000")
+        self._apply_border(self.toolbar)
 
-        self.main_frame = ctk.CTkFrame(master=self.root, fg_color="#1f1f1f")
-        self._apply_border(self.main_frame, "#0000ff")
+        self.main_frame = ctk.CTkFrame(master=self.root, fg_color=COLORS["main_bg"][1])
+        self._apply_border(self.main_frame, COLORS["border"][1])
 
         self.header_frame = ctk.CTkFrame(
             master=self.main_frame,
             height=50,
-            fg_color="#2b2b2b",
+            fg_color=COLORS["header_bg"][1],
         )
-        self._apply_border(self.header_frame, "#ff0000")
+        self._apply_border(self.header_frame)
 
         self.header_label = ctk.CTkLabel(
             master=self.header_frame,
             text="YT Converter to MP3",
-            height=50,
-            # fg_color="#2b2b2b",
+            height=40,
+        )
+
+        self.url_entry = ctk.CTkEntry(
+            master=self.main_frame,
+            placeholder_text="Cole o link aqui",
+            placeholder_text_color=COLORS["entry_placeholder"],
+            text_color=COLORS["entry_text"],
+            height=30,
+            width=400,
+            fg_color=COLORS["entry_bg"],
+        )
+
+        self.mode_selector = ctk.CTkSegmentedButton(
+            master=self.main_frame,
+            values=["Link", "Playlist"],
+            command=self.on_mode_change,
+        )
+
+        self.convert_button = ctk.CTkButton(
+            master=self.main_frame,
+            text="Converter",
+            height=30,
+            width=100,
+            command=self.on_convert_click,
         )
 
     def _layout_frames(self):
@@ -77,11 +120,28 @@ class App:
         # Header label
         self.header_label.pack(side="top", fill="x")
 
+        # URL entry
+        self.url_entry.pack(side="top", pady=(10, 0), padx=20)
+
+        # Mode selector
+        self.mode_selector.pack(side="top", pady=(10, 0), padx=20)
+
+        # Convert button
+        self.convert_button.pack(side="top", pady=(10, 0), padx=20)
+
+    def on_convert_click(self):
+        return print("Convert button clicked")
+
+    def on_mode_change(self, value):
+        return print("Mode selector changed to", value)
+
     def build_ui(self):
         """Cria toda a interface."""
         self._create_root()
         self._create_frames()
         self._layout_frames()
+
+        self.mode_selector.set("Link")
 
         # Atributos que os testes esperam
         self.toolbar_layout = True

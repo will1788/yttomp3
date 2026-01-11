@@ -40,6 +40,12 @@ def test_toolbar_existe_e_tem_width_fixa(app_inst):
     assert app_inst.toolbar_width == 200
 
 
+def test_menu_button_existe(app_inst):
+    """Verifica se o botão de menu foi criado na toolbar."""
+    assert hasattr(app_inst, "menu_btn")
+    assert app_inst.menu_btn is not None
+
+
 def test_main_frame_existe_e_expande(app_inst):
     """Assegura que o frame principal foi criado."""
     assert hasattr(app_inst, "main_frame")
@@ -63,3 +69,34 @@ def test_header_label_existe(app_inst):
     """Verifica a criação do label de título."""
     assert hasattr(app_inst, "header_label")
     assert app_inst.header_label is not None
+
+
+def test_url_entry_existe(app_inst):
+    assert hasattr(app_inst, "url_entry")
+    assert app_inst.url_entry is not None
+
+
+def test_convert_button_existe(app_inst):
+    assert hasattr(app_inst, "convert_button")
+    assert app_inst.convert_button is not None
+
+
+def test_se_btn_converte_tem_comando_on_convert_click(app_inst):
+    assert hasattr(app_inst, "on_convert_click")
+    assert callable(app_inst.on_convert_click)
+
+
+def test_se_mode_selector_existe(app_inst, mock_ctk):
+    assert hasattr(app_inst, "mode_selector")
+    assert app_inst.mode_selector is not None
+    assert hasattr(app_inst, "on_mode_change")
+
+    segmented = mock_ctk["CTkSegmentedButton"]
+
+    kwargs = segmented.call_args
+
+    assert "command" in kwargs
+    assert kwargs["command"] == app_inst.on_mode_change
+
+    def test_mode_selector_tem_valor_padrao(app_inst):
+        app_inst.mode_selector.set().assert_called_with("Link")
