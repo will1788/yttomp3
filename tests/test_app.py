@@ -98,5 +98,13 @@ def test_se_mode_selector_existe(app_inst, mock_ctk):
     assert "command" in kwargs
     assert kwargs["command"] == app_inst.on_mode_change
 
-    def test_mode_selector_tem_valor_padrao(app_inst):
-        app_inst.mode_selector.set().assert_called_with("Link")
+
+def test_mode_selector_tem_valor_padrao(app_inst):
+    """Verifica se o valor padrão do seletor é definido corretamente."""
+    app_inst.mode_selector.set.assert_called_with("Link")
+
+
+def test_se_feedback_label_existe(app_inst):
+    """Verifica a existência do label de feedback."""
+    assert hasattr(app_inst, "feedback_label")
+    assert app_inst.feedback_label is not None

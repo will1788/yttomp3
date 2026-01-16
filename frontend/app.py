@@ -30,6 +30,7 @@ class App:
         self.url_entry = None
         self.mode_selector = None
         self.convert_button = None
+        self.feedback_label = None
 
         # Debug
         self.debug_mode = False
@@ -101,6 +102,13 @@ class App:
             command=self.on_convert_click,
         )
 
+        self.feedback_label = ctk.CTkLabel(
+            master=self.main_frame,
+            text=" feedback aqui ",
+            height=24,
+            # fg_color=COLORS["entry_placeholder"],
+        )
+
     def _layout_frames(self):
         """Aplica layout apenas no modo real."""
         # toolbar
@@ -121,13 +129,16 @@ class App:
         self.header_label.pack(side="top", fill="x")
 
         # URL entry
-        self.url_entry.pack(side="top", pady=(10, 0), padx=20)
+        self.url_entry.pack(side="top", pady=(20, 0), padx=20)
 
         # Mode selector
         self.mode_selector.pack(side="top", pady=(10, 0), padx=20)
 
         # Convert button
-        self.convert_button.pack(side="top", pady=(10, 0), padx=20)
+        self.convert_button.pack(side="top", pady=(20, 0), padx=20)
+
+        # Feedback label
+        self.feedback_label.pack(side="top", pady=(20, 20), padx=20)
 
     def on_convert_click(self):
         return print("Convert button clicked")
